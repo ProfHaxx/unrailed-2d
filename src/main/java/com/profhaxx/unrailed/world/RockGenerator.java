@@ -23,8 +23,7 @@ public class RockGenerator {
             for(int j = upperY; j < lowerY; j++) {
                 int dist = Math.abs(x-j) + Math.abs(y-j);
                 double rand = random.nextDouble();
-
-                if(rand < Math.pow(1.1, -2.0 * dist)) {
+                if(rand < Math.pow(1.1, -1.0 * dist)) {
                     world.spawn(new RockDeposit(world, i, j));
                 }
             }

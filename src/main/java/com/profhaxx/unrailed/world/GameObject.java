@@ -10,7 +10,14 @@ public abstract class GameObject {
         this.stage = belongsTo;
         this.x = x;
         this.y = y;
+    }
+
+    public void spawn() {
         stage.spawn(this);
+    }
+
+    public void forceSpawn() {
+        stage.forceSpawn(this);
     }
 
     public int getX() {

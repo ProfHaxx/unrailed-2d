@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 public class ForestTree extends GameObject {
     public ForestTree(World world, int initialX, int initialY) {
         super(world, initialX, initialY);
+        spawn();
     }
 
     @Override

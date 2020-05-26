@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 public class RockDeposit extends GameObject {
     public RockDeposit(World belongsTo, int initialX, int initialY) {
         super(belongsTo, initialX, initialY);
+        spawn();
     }
 
     @Override

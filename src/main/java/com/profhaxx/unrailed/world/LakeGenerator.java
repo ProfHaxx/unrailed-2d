@@ -6,9 +6,9 @@ import com.profhaxx.unrailed.App;
 
 public class LakeGenerator {
     public static void generate(World world, int x, int y) {
-        int upperX = (x - world.clusterSize) < 0 ? 0 
+        int upperX = (x - world.clusterSize/2) < 0 ? 0 
             : x - world.clusterSize;
-        int lowerX = (x + world.clusterSize) > App.WIDTH/world.cmpsize 
+        int lowerX = (x + world.clusterSize/2) > App.WIDTH/world.cmpsize 
             ?  App.WIDTH/world.cmpsize 
             : x + world.clusterSize;
 
@@ -23,7 +23,6 @@ public class LakeGenerator {
             for(int j = upperY; j < lowerY; j++) {
                 int dist = Math.abs(x-j) + Math.abs(y-j);
                 double rand = random.nextDouble();
-
                 if(rand < Math.pow(1.1, -2.0 * dist)) {
                     world.spawn(new LakeSource(world, i, j));
                 }

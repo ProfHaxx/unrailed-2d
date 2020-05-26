@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 public class LakeSource extends GameObject {
     public LakeSource(World belongsTo, int initialX, int initialY) {
         super(belongsTo, initialX, initialY);
+        spawn();
     }
 
     @Override

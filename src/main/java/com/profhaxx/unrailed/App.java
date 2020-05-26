@@ -16,8 +16,8 @@ public class App extends JFrame {
 
     public static void main(String[] args) {
         app = new App();
+        app.addComponents();
         app.setup();
-        app.launch();
     }
 
     public void setup() {
@@ -29,7 +29,7 @@ public class App extends JFrame {
         setVisible(true);
     }
 
-    public void launch() {
+    public void addComponents() {
         world = new World();
         world.init();
         

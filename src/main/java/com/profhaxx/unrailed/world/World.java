@@ -22,17 +22,27 @@ public class World extends JPanel {
         new Color(0x806010)  //Brown
     };
     
-    int cmpsize = 20;
+    int cmpsize = 32;
     int clusterSize = 5;
     Player player;
 
     ArrayList<GameObject> objects = new ArrayList<>();
 
     public void init() {
-        player = new Player(this, 0, 0);
         generate();
-
+        player = new Player(this, 0, 0, 's');
         System.out.println("Generated " + objects.size() + " objects!");
+    }
+
+    public void forceSpawn(GameObject o) {
+        for(GameObject oi:objects) {
+            if(o.isOn(oi)) {
+                objects.remove(oi);
+                objects.add(o);
+                return;
+            } 
+        }
+        objects.add(o);
     }
 
     public void spawn(GameObject o) {
@@ -42,8 +52,16 @@ public class World extends JPanel {
         objects.add(o);
     }
 
+    public boolean move(GameObject o, int x, int y) {
+        for(GameObject oi:objects) {
+            if(o.isOn(oi)) return false;
+        }
+        return true;
+    }
+
     @Override
     public void update(Graphics g) {
+        System.out.println("[DEBUG] Update...");
         Graphics offGraphics;
         Image offScreen = null;
         Dimension d = size();
@@ -62,6 +80,7 @@ public class World extends JPanel {
 
     @Override
     public void paint(Graphics g) {
+        System.out.println("[DEBUG] Paint...");
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(palette[0]);
         g2d.fillRect(0,0,App.WIDTH,App.HEIGHT);
@@ -73,8 +92,8 @@ public class World extends JPanel {
         /*
          * Chances to spawn:
          * Forest => (4 per 48*27 = 1296)
-         * Rock Vein => (2 per 1296)
-         * Lake => (3 per 1296)
+         * Rock Vein => (4 per 1296)
+         * Lake => (2 per 1296)
          */
 
         Random random = new Random();
@@ -86,10 +105,10 @@ public class World extends JPanel {
                 if(num <= 4.0/1296.0) {
                     System.out.println("Generating Forest @(" + i + "|" + j + ")");
                     ForestGenerator.generate(this, i, j);
-                } else if(num > 4.0/1296.0 && num <= 6.0/1296.0) {
+                } else if(num > 4.0/1296.0 && num <= 8.0/1296.0) {
                     System.out.println("Generating Rock Vein @(" + i + "|" + j + ")");
                     RockGenerator.generate(this, i, j);
-                } else if(num > 6.0/1296.0 && num <= 9.0/1296.0) {
+                } else if(num > 8.0/1296.0 && num <= 10.0/1296.0) {
                     System.out.println("Generating Lake @(" + i + "|" + j + ")");
                     LakeGenerator.generate(this, i, j);
                 }
