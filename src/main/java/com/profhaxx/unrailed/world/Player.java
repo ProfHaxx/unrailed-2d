@@ -1,12 +1,11 @@
 package com.profhaxx.unrailed.world;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import com.profhaxx.unrailed.overlay.inventory.Inventory;
 
 public class Player extends DirectionalGameObject {
-    
-    int x,y;
     Inventory inventory;
 
     public Player(World belongsTo, int initialX, int initialY, char orientation) {
@@ -32,6 +31,10 @@ public class Player extends DirectionalGameObject {
         }
     }
 
+    private AffineTransform getTransform(int angle, int imgWidth, int imgHeight) {
+        return AffineTransform.getRotateInstance(Math.toRadians(angle), imgHeight/2, imgWidth/2);
+    }
+
     public void breakBlock() {
         stage.breakBlock(this, inventory.getSelected());
     }
@@ -40,6 +43,7 @@ public class Player extends DirectionalGameObject {
     public void paint(Graphics2D g) {
         g.setColor(stage.palette[1]);
         g.fillRect(this.x*stage.cmpsize,this.y*stage.cmpsize,stage.cmpsize,stage.cmpsize);
+        getInventory().paint(g);
     }
 
     public void select(int num) {

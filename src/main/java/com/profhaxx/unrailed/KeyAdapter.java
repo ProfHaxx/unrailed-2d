@@ -16,20 +16,20 @@ public class KeyAdapter implements KeyListener {
 
         switch(keyCode) {
             case KeyEvent.VK_W:
-                player.move(0,-1, true);
                 player.setOrientation('n');
+                player.move(0,-1, true);
                 break;
             case KeyEvent.VK_S:
-                player.move(0,1, true);
                 player.setOrientation('s');
+                player.move(0,1, true);
                 break;
             case KeyEvent.VK_A:
-                player.move(-1,0, true);
                 player.setOrientation('w');
+                player.move(-1,0, true);
                 break;
             case KeyEvent.VK_D:
-                player.move(1,0, true);
                 player.setOrientation('e');
+                player.move(1,0, true);
                 break;
             case KeyEvent.VK_SPACE:
                 player.breakBlock();
@@ -63,6 +63,10 @@ public class KeyAdapter implements KeyListener {
                 }
                 System.out.println("Axe Uses: " + durabilities[0] + ", Pickaxe Uses: " + durabilities[1] + ", Buckets filled: " + durabilities[2] + ".\n" +
                         "Wood Collected: " + quantities[0] + ", Rocks collected: " + quantities[1]);
+                player.getInventory().toggleUI();
+                break;
+            case KeyEvent.VK_F1:
+                player.getInventory().toggleDebug();
                 break;
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);

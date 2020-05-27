@@ -14,7 +14,8 @@ public class RockDeposit extends GameObject implements Breakable {
         try {
             Thread.sleep(3000); // Break Time
         } catch(InterruptedException ignored) { }
-        p.getInventory().add(new ItemMaterial(p.getInventory(), "rock", 1));
+        System.out.println("[DEBUG] Block broken @(" + this.x + "|" + this.y + ")");
+        new ItemMaterial(p.getInventory(), "rock", 1);
         stage.objects.remove(this);
     }
 

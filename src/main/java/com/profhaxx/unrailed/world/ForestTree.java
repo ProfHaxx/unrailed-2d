@@ -14,7 +14,7 @@ public class ForestTree extends GameObject implements Breakable {
         try {
             Thread.sleep(3000); // Break Time
         } catch(InterruptedException ignored) { }
-        p.getInventory().add(new ItemMaterial(p.getInventory(), "wood", 1));
+        new ItemMaterial(p.getInventory(), "wood", 1);
         stage.objects.remove(this);
     }
 

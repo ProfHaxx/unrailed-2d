@@ -24,7 +24,7 @@ public class World extends JPanel {
         new Color(0x806010)  //Brown
     };
     
-    int cmpsize = 32;
+    public int cmpsize = 32;
     int clusterSize = 5;
     Player player;
 
@@ -87,19 +87,31 @@ public class World extends JPanel {
             yi[2] = 1;
         }
 
-        if(sel.getName().equals("pickaxe")) {
+        if(sel.getName().equals("pickaxe") && !((ItemTool) sel).isBroken()) {
             for(int i = 0; i < 3; i++) {
-                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof RockDeposit) ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof RockDeposit) { 
+                    ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+                    ((ItemTool) sel).decreaseDurability();
+                    break;
+                }
             }
         }
-        if(sel.getName().equals("bucket")) {
+        if(sel.getName().equals("bucket") && !(((ItemTool) sel).getDurability() >= 1)) {
             for(int i = 0; i < 3; i++) {
-                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof LakeSource) ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof LakeSource) {
+                    ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+                    ((ItemTool) sel).increaseDurability();
+                    break;
+                }
             }
         }
-        if(sel.getName().equals("axe")) {
+        if(sel.getName().equals("axe") && !((ItemTool) sel).isBroken()) {
             for(int i = 0; i < 3; i++) {
-                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof ForestTree) ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof ForestTree) {
+                    ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+                    ((ItemTool) sel).decreaseDurability();
+                    break;
+                }
             }
         }
     }

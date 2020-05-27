@@ -23,6 +23,18 @@ public class ItemTool extends Item {
         this.durability += ((ItemTool) i).durability;
     }
 
+    public void decreaseDurability() {
+        this.durability--;
+    }
+
+    public void increaseDurability() {
+        this.durability++;
+    }
+
+    public boolean isBroken() {
+        return this.durability <= 0;
+    }
+
     public static ItemTool AXE(Inventory inv) {
         return new ItemTool(inv, "axe", 64);
     }

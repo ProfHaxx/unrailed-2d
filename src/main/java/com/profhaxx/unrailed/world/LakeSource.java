@@ -14,7 +14,7 @@ public class LakeSource extends GameObject implements Breakable {
         try {
             Thread.sleep(3000); // Break Time
         } catch(InterruptedException ignored) { }
-        p.getInventory().add(new ItemTool(p.getInventory(), "bucket", 1));
+        new ItemTool(p.getInventory(), "bucket", 1);
     }
 
     @Override
