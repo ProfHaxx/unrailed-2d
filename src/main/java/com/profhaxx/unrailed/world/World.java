@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.profhaxx.unrailed.overlay.inventory.Item;
+import com.profhaxx.unrailed.overlay.inventory.ItemTool;
 import com.profhaxx.unrailed.App;
 
 public class World extends JPanel {
@@ -45,6 +47,63 @@ public class World extends JPanel {
         objects.add(o);
     }
 
+    public GameObject objAt(int x, int y) {
+        for(GameObject oi:objects) {
+            if(oi.isOn(x,y)) return oi;
+        }
+        return null;
+    }
+
+    public void breakBlock(Player p, Item sel) {
+
+        int[] xi = new int[3];
+        int[] yi = new int[3];
+
+        if(p.getOrientation() == 'n' || p.getOrientation() == 's') {
+            xi[0] = 0;
+            xi[1] = -1;
+            xi[2] = +1;
+        } else if(p.getOrientation() == 'w') {
+            xi[0] = -1;
+            xi[1] = -1;
+            xi[2] = -1;
+        } else {
+            xi[0] = 1;
+            xi[1] = 1;
+            xi[2] = 1;
+        }
+
+        if(p.getOrientation() == 'w' || p.getOrientation() == 'e') {
+            yi[0] = 0;
+            yi[1] = -1;
+            yi[2] = 1;
+        } else if(p.getOrientation() == 'n') {
+            yi[0] = -1;
+            yi[1] = -1;
+            yi[2] = -1;
+        } else {
+            yi[0] = 1;
+            yi[1] = 1;
+            yi[2] = 1;
+        }
+
+        if(sel.getName().equals("pickaxe")) {
+            for(int i = 0; i < 3; i++) {
+                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof RockDeposit) ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+            }
+        }
+        if(sel.getName().equals("bucket")) {
+            for(int i = 0; i < 3; i++) {
+                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof LakeSource) ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+            }
+        }
+        if(sel.getName().equals("axe")) {
+            for(int i = 0; i < 3; i++) {
+                if(objAt(p.x + xi[i], p.y + yi[i]) instanceof ForestTree) ((Breakable)objAt(p.x + xi[i], p.y + yi[i])).breakBlock(p);
+            }
+        }
+    }
+
     public void spawn(GameObject o) {
         for(GameObject oi:objects) {
             if(o.isOn(oi)) return;
@@ -52,11 +111,9 @@ public class World extends JPanel {
         objects.add(o);
     }
 
-    //TODO FIX THIS
     public boolean move(GameObject o, int x, int y) {
         for(GameObject oi:objects) {
             if(oi.isOn(x,y) && !o.equals(oi)) {
-                System.out.println("Object Stacking prevented!");
                 return false;
             }
         }

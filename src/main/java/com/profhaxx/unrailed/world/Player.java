@@ -2,10 +2,16 @@ package com.profhaxx.unrailed.world;
 
 import java.awt.Graphics2D;
 
+import com.profhaxx.unrailed.overlay.inventory.Inventory;
+
 public class Player extends DirectionalGameObject {
+    
     int x,y;
+    Inventory inventory;
+
     public Player(World belongsTo, int initialX, int initialY, char orientation) {
         super(belongsTo, initialX, initialY, orientation);
+        inventory = new Inventory(this);
         forceSpawn();
     }
 
@@ -26,9 +32,21 @@ public class Player extends DirectionalGameObject {
         }
     }
 
+    public void breakBlock() {
+        stage.breakBlock(this, inventory.getSelected());
+    }
+
     @Override
     public void paint(Graphics2D g) {
         g.setColor(stage.palette[1]);
         g.fillRect(this.x*stage.cmpsize,this.y*stage.cmpsize,stage.cmpsize,stage.cmpsize);
+    }
+
+    public void select(int num) {
+        getInventory().select(num);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
