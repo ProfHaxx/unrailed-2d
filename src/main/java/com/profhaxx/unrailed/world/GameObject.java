@@ -32,5 +32,9 @@ public abstract class GameObject {
         return this.x == o.x && this.y == o.y;
     }
 
+    public boolean isOn(int x, int y) {
+        return this.x == x && this.y == y;
+    }
+
     public abstract void paint(Graphics2D g);
 }

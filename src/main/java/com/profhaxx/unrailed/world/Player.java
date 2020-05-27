@@ -11,12 +11,18 @@ public class Player extends DirectionalGameObject {
 
     @Override    
     public void move(int dx, int dy, boolean relativeMovement) {
+        int tX = 0, tY = 0;
         if(relativeMovement) {
-            this.x += dx;
-            this.y += dy;
+            tX = this.x + dx;
+            tY = this.y + dy;
         } else {
-            this.x = x;
-            this.y = y;
+            tX = x;
+            tY = y;
+        }
+
+        if(stage.move(this, tX, tY)) {
+            this.x = tX;
+            this.y = tY;
         }
     }
 

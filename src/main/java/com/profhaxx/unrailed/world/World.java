@@ -52,9 +52,13 @@ public class World extends JPanel {
         objects.add(o);
     }
 
+    //TODO FIX THIS
     public boolean move(GameObject o, int x, int y) {
         for(GameObject oi:objects) {
-            if(o.isOn(oi)) return false;
+            if(oi.isOn(x,y) && !o.equals(oi)) {
+                System.out.println("Object Stacking prevented!");
+                return false;
+            }
         }
         return true;
     }
