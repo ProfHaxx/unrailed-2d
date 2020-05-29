@@ -181,7 +181,7 @@ public class World extends JPanel {
                 } else if(num > 4.0/1296.0 && num <= 8.0/1296.0) {
                     System.out.println("Generating Rock Vein @(" + i + "|" + j + ")");
                     RockGenerator.generate(this, i, j);
-                } else if(num > 8.0/1296.0 && num <= 10.0/1296.0) {
+                } else if(num > 8.0/1296.0 && num <= 10.0/1296.0 && i > 8 && j > 8) {
                     System.out.println("Generating Lake @(" + i + "|" + j + ")");
                     LakeGenerator.generate(this, i, j);
                 }

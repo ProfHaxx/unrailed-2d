@@ -37,6 +37,7 @@ public class Player extends DirectionalGameObject {
 
     public void breakBlock() {
         stage.breakBlock(this, inventory.getSelected());
+        stage.repaint();
     }
 
     @Override

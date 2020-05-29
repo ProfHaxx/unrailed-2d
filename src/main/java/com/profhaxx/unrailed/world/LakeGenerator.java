@@ -1,11 +1,31 @@
 package com.profhaxx.unrailed.world;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 import com.profhaxx.unrailed.App;
 
 public class LakeGenerator {
+    public static HashMap <LakeSource, GenerationTuple> generationMap = new HashMap<>();
+
+    public static boolean empty() {
+        Iterator it = generationMap.entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if(!((GenerationTuple) pair.getValue()).empty()) return false;
+        }
+        return true;
+    }
+
     public static void generate(World world, int x, int y) {
+        /*
+        generationMap.put(new LakeSource(world, i, j));
+        while(!empty()) {
+
+        }*/
+        
         int upperX = (x - world.clusterSize/2) < 0 ? 0 
             : x - world.clusterSize;
         int lowerX = (x + world.clusterSize/2) > App.WIDTH/world.cmpsize 
